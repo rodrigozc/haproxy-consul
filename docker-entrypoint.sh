@@ -18,6 +18,6 @@ echo "Initializing consul..."
 nohup consul agent -advertise $IP -client 0.0.0.0 -retry-join $CONSUL_SERVER -data-dir /opt/consul/data -config-dir /opt/consul/config -node-id `cat /proc/sys/kernel/random/uuid` > /var/log/consul.log 2>&1&
 
 echo "Initializing consul template..."
-nohup consul-template -template "/usr/local/etc/haproxy/haproxy.template:/usr/local/etc/haproxy/haproxy.cfg:nohup $@ &" > /var/log/consul-template.log 2>&1&
+nohup consul-template -template "/usr/local/etc/haproxy/haproxy.template:/usr/local/etc/haproxy/haproxy.cfg" > /var/log/consul-template.log 2>&1&
 
-echo "$@..."
+exec "$@"
