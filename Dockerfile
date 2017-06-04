@@ -30,4 +30,5 @@ RUN mkdir -p /opt/consul/data \
     && rm consul-template_${CONSUL_TEMPLATE_VERSION}_linux_amd64.zip
 
 ADD docker-entrypoint.sh docker-entrypoint.sh
+ADD restart.bash restart.bash
 ADD haproxy.cfg /usr/local/etc/haproxy/haproxy.cfg
