@@ -6,6 +6,8 @@ ENV CONSUL_TEMPLATE_VERSION "0.18.5"
 ENV CONSUL_SERVER "consul-server"
 ENV CONSUL_INTERFACE "eth0"
 
+ADD docker-entrypoint.sh docker-entrypoint.sh
+
 RUN mkdir -p /opt/consul/data \
     && mkdir -p /opt/consul/config \
     && apt-get update \
@@ -13,6 +15,7 @@ RUN mkdir -p /opt/consul/data \
     && echo "pt_BR.UTF-8 UTF-8" > /etc/locale.gen \
     && locale-gen pt_BR.UTF-8 \
     && rm /etc/localtime \
+    && chmod +x docker-entrypoint.sh \
     && ln -s /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/cache/* \
@@ -28,5 +31,3 @@ RUN mkdir -p /opt/consul/data \
     && mv consul-template /usr/bin/consul-template \
     && chmod +x /usr/bin/consul-template \
     && rm consul-template_${CONSUL_TEMPLATE_VERSION}_linux_amd64.zip
-
-ADD docker-entrypoint.sh docker-entrypoint.sh
